@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrueLens - Fake News Detector</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="ambient-orbs"></div>
+
+    <header class="site-header" id="home">
+        <nav class="nav">
+            <a class="brand" href="#home">
+                <img src="assets/truelens-logo.svg" alt="TrueLens Logo">
+                <div>
+                    <span class="brand-title">TrueLens</span>
+                    <span class="brand-subtitle">Fake News Detector</span>
+                </div>
+            </a>
+            <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation menu">
+            <label for="nav-toggle" class="nav-toggle-label">
+                <span></span>
+            </label>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#detector">Detector</a>
+                <a href="#about">About</a>
+                <a href="#features">Why TrueLens</a>
+                <a href="#contact">Contact</a>
+                <!-- <a href="login.html" class="nav-login">Login</a> -->
+            </div>
+            <div class="nav-cta">
+                <a href="#detector" class="primary-link">Try the Demo</a>
+                <a href="login.html" class="ghost-link">Login</a>
+            </div>
+        </nav>
+
+        <div class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow">AI Fact-Checking in Seconds</p>
+                <h1 class="hero-title">Look through the noise with <span>TrueLens</span></h1>
+                <p class="hero-text">
+                    Paste any article and let TrueLens filter facts from fiction using explainable AI, forensic signals, and curated knowledge graphs.
+                </p>
+                <div class="hero-actions">
+                    <a href="#detector" class="primary-link">Analyze Article</a>
+                    <a href="#about" class="ghost-link">Learn More</a>
+                </div>
+                <div class="hero-stats">
+                    <div>
+                        <strong>22K+</strong>
+                        <span>Articles verified</span>
+                    </div>
+                    <div>
+                        <strong>54%</strong>
+                        <span>Detection accuracy</span>
+                    </div>
+                    <div>
+                        <strong>0+</strong>
+                        <span>Media partners</span> 
+                    </div>
+                </div>
+            </div>
+            <div class="hero-card">
+                <p class="hero-card-title">Recent Verification</p>
+                <ul class="hero-feed">
+                    <li>
+                        <span>Global Health</span>
+                        <strong>Real</strong>
+                    </li>
+                    <li>
+                        <span>Election Coverage</span>
+                        <strong>Fake</strong>
+                    </li>
+                    <li>
+                        <span>Market Update</span>
+                        <strong>Real</strong>
+                    </li>
+                </ul>
+                <!-- <p class="hero-card-foot">Powered by NLP + Source Trust Graphs</p> -->
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="detector" class="section detector-section">
+            <div class="section-heading">
+                <p class="eyebrow">Interactive Lab</p>
+                <h2>TrueLens Detector</h2>
+                <p>Paste any news article and get instant credibility analysis.</p>
+            </div>
+            <div class="detector-grid">
+                <div class="main-content">
+                    <div class="input-section">
+                        <div class="input-wrapper">
+                            <label for="news-article" class="input-label">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    <polyline points="10 9 9 9 8 9"></polyline>
+                                </svg>
+                                Paste or type your news article below
+                            </label>
+                            <textarea 
+                                id="news-article" 
+                                class="article-input" 
+                                placeholder="Enter the news article text here...&#10;&#10;Example: Scientists have discovered a new planet that could support life..."
+                                rows="12"
+                            ></textarea>
+                            <div class="char-count">
+                                <span id="char-count">0</span> characters
+                            </div>
+                        </div>
+                        
+                        <button id="analyze-btn" class="analyze-btn">
+                            <span class="btn-text">Analyze Article</span>
+                            <svg class="btn-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10 L16 10 M10 4 L16 10 L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+    
+                    <div id="loading-section" class="loading-section hidden">
+                        <div class="loader">
+                            <div class="loader-ring"></div>
+                            <div class="loader-ring"></div>
+                            <div class="loader-ring"></div>
+                        </div>
+                        <p class="loading-text">Analyzing article...</p>
+                    </div>
+    
+                    <div id="result-section" class="result-section hidden">
+                        <div class="result-card">
+                            <div class="result-header">
+                                <h2>Analysis Result</h2>
+                                <button id="close-result" class="close-btn">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                        <path d="M15 5 L5 15 M5 5 L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div id="result-content" class="result-content"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="detector-side">
+                    <div class="info-card">
+                        <h3>How it works</h3>
+                        <ul>
+                            <li>Semantic similarity to trusted archives</li>
+                            <li>Source reputation and author fingerprint</li>
+                            <li>Emotional tone and sensational heuristics</li>
+                            <li>Cross-network propagation footprint</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h3>Trust Indicators</h3>
+                        <div class="indicator">
+                            <span>Source Integrity</span>
+                            <strong>To be calculated</strong>
+                        </div>
+                        <div class="indicator">
+                            <span>Content Consistency</span>
+                            <strong>To be calculated</strong>
+                        </div>
+                        <div class="indicator">
+                            <span>Fact Confidence</span>
+                            <strong>To be calculated</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section about-section">
+            <div class="section-heading">
+                <p class="eyebrow">About TrueLens</p>
+                <h2>Built for journalists, citizens, and researchers</h2>
+                <p>TrueLens combines forensic linguistics with knowledge graphs to flag misinformation before it spreads.</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3>Mission</h3>
+                    <p>Deliver real-time truth signals for every article on the internet.</p>
+                </div>
+                <div class="about-card">
+                    <h3>Approach</h3>
+                    <p>Blend natural language processing, social graph analysis, and community flags.</p>
+                </div>
+                <div class="about-card">
+                    <h3>Impact</h3>
+                    <p>Helping fact-check desks trim verification time from hours to minutes.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="section features-section">
+            <div class="section-heading">
+                <p class="eyebrow">Why TrueLens</p>
+                <h2>Eye-opening capabilities</h2>
+            </div>
+            <div class="features-grid">
+                <article>
+                    <h3>Explainable Insights</h3>
+                    <p>Understand why an article is labeled fake with evidence-backed highlights.</p>
+                </article>
+                <article>
+                    <h3>Source Graph</h3>
+                    <p>Trace article origins, reposters, and tampering signals across networks.</p>
+                </article>
+                <article>
+                    <h3>Team Collaboration</h3>
+                    <p>Invite editors to comment, approve, or override verdicts with notes.</p>
+                </article>
+                <!-- <article>
+                    <h3>Integrations</h3>
+                    <p>REST + Webhook APIs plug TrueLens into newsroom dashboards instantly.</p>
+                </article> -->
+            </div>
+        </section>
+
+        <section id="contact" class="section contact-section">
+            <div class="section-heading">
+                <p class="eyebrow">Contact</p>
+                <h2>Partner with TrueLens</h2>
+                <p>We work with newsrooms, fintechs, and community moderators.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3>Talk to us</h3>
+                    <p>Email: truelens@gmail.com</p>
+                    <p>Press: press@truelens.ai</p>
+                    <p>Partnerships: partners@truelens.ai</p>
+                    <div class="socials">
+                        <a href="#">Twitter</a>
+                        <a href="#">LinkedIn</a>
+                        <a href="#">GitHub</a>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <label>
+                        Name
+                        <input type="text" placeholder="Ada Lovelace" required>
+                    </label>
+                    <label>
+                        Email
+                        <input type="email" placeholder="ada@truelens.ai" required>
+                    </label>
+                    <label>
+                        Message
+                        <textarea rows="4" placeholder="Tell us about your use case" required></textarea>
+                    </label>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div>
+            <img src="assets/truelens-logo.svg" alt="TrueLens Logo">
+            <p>TrueLens • Trust the facts before they go viral.</p>
+        </div>
+        <div class="footer-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#features">Features</a>
+            <a href="#contact">Contact</a>
+            <a href="login.html">Login</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
